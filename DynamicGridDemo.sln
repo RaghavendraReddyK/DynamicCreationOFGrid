@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicGridDemo", "DynamicGridDemo.csproj", "{A42379E5-87D0-44C8-8F44-BEBD672A648A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A42379E5-87D0-44C8-8F44-BEBD672A648A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A42379E5-87D0-44C8-8F44-BEBD672A648A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A42379E5-87D0-44C8-8F44-BEBD672A648A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A42379E5-87D0-44C8-8F44-BEBD672A648A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A5CE3D1-571D-47F4-B145-3B92D4C44242}
+	EndGlobalSection
+EndGlobal

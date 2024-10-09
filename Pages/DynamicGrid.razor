@@ -1,0 +1,75 @@
+﻿@page "/dynamicgrid"
+@inject ProductServices ProductServices
+
+<h3>Dynamic Grid with Product Attributes</h3>
+
+<TelerikGrid Data="@Prod" Pageable="true" Sortable="true">
+    <GridColumns>
+        <GridColumn Field="Name" Title="Product Name" />
+        <GridColumn Field="Price" Title="Price" />
+
+        @* Dynamically generate columns for each unique attribute key *@
+        @if (ProdAtt != null && ProdAtt.Any())
+        {
+            foreach (var attrKey in ProdAtt.Select(a => a.Key).Distinct())
+            {
+                <GridColumn Title="@attrKey">
+                    <Template>
+                        @{
+                            var productAttributes = ((Product)context).Attributes;
+                            var value = productAttributes?.FirstOrDefault(a => a.Key == attrKey)?.Value;
+                        }
+                        @value
+                    </Template>
+                </GridColumn>
+            }
+        }
+    </GridColumns>
+</TelerikGrid>
+
+<hr />
+
+<h3>Add New Attribute</h3>
+<TelerikForm Model="@newAttribute" OnSubmit="@AddField">
+    <FormItems>
+        <label>Select Product</label>
+        <InputSelect @bind-Value="newAttribute.ProductId">
+            @foreach (var product in Prod)
+            {
+                <option value="@product.Id">@product.Name</option>
+            }
+        </InputSelect>
+
+        <label>Column Name</label>
+        <InputText @bind-Value="newAttribute.Key" />
+
+        <label>Field Value</label>
+        <InputText @bind-Value="newAttribute.Value" />
+    </FormItems>
+    <FormButtons>
+        <TelerikButton ButtonType="@ButtonType.Submit">Add Field</TelerikButton>
+    </FormButtons>
+</TelerikForm>
+
+@code {
+    public List<Product> Prod { get; set; } = new List<Product>();
+    public List<ProductAttribute> ProdAtt { get; set; } = new List<ProductAttribute>();
+
+    private ProductAttribute newAttribute = new ProductAttribute();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Prod = await ProductServices.GetProducts();
+        ProdAtt = await ProductServices.GetProductAttributeAsync();
+    }
+
+    private async Task AddField()
+    {
+        ProductServices.AddDynamicField(newAttribute.ProductId, newAttribute.Key, newAttribute.Value);
+
+        Prod = await ProductServices.GetProducts();
+        ProdAtt = await ProductServices.GetProductAttributeAsync();
+
+        StateHasChanged();
+    }
+}
